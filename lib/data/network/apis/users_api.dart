@@ -4,4 +4,6 @@ class UsersApi {
   UsersApi(this.RestClient);
 
   final RestClient;
+
+  Future<List<User>> getUsers(){}
 }
