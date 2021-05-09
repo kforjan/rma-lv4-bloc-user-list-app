@@ -6,7 +6,7 @@ import 'package:rma_lv4_user_list_bloc_app/data/network/rest_client.dart';
 final locator = GetIt.instance;
 
 setup() {
-  locator.registerFactory(() => UserListBloc());
+  locator.registerFactory(() => UserListBloc(locator()));
   locator.registerLazySingleton(() => RestClient());
   locator.registerLazySingleton(() => UsersApi(locator()));
 }

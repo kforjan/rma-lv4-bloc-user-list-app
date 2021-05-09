@@ -7,12 +7,16 @@ class UsersApi {
   final RestClient _restClient;
 
   Future<List<User>> getUsers() async {
-    final List<dynamic> response = await _restClient
-        .get('https://5e510330f2c0d300147c034c.mockapi.io/users');
-    List<User> userList = [];
-    response.forEach((element) {
-      userList.add(User.fromJson(element));
-    });
-    return userList;
+    try {
+      final List<dynamic> response = await _restClient
+          .get('https://5e510330f2c0d300147c034c.mockapi.io/users');
+      List<User> userList = [];
+      response.forEach((element) {
+        userList.add(User.fromJson(element));
+      });
+      return userList;
+    } catch (e) {
+      throw e;
+    }
   }
 }
