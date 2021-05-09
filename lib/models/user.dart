@@ -13,5 +13,12 @@ class User {
   final String email;
   final String avatarUrl;
 
-  factory User.fromJson(Map<String, dynamic> json) {}
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      avatarUrl: json['avatarUrl'],
+    );
+  }
 }
