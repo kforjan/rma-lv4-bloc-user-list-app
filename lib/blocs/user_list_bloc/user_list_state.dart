@@ -5,8 +5,6 @@ abstract class UserListState {}
 
 class UserListInitial extends UserListState {}
 
-class UserListLoading extends UserListState {}
-
 class UserListLoaded extends UserListState {
   UserListLoaded(this.userList);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rma_lv4_user_list_bloc_app/data/network/apis/users_api.dart';
-import 'package:rma_lv4_user_list_bloc_app/injection_container.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rma_lv4_user_list_bloc_app/blocs/user_list_bloc/user_list_bloc.dart';
+import 'package:rma_lv4_user_list_bloc_app/models/user.dart';
 
 class UserListScreen extends StatelessWidget {
   const UserListScreen({Key key}) : super(key: key);
@@ -9,16 +10,33 @@ class UserListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder(
-        future: locator<UsersApi>().getUsers(),
-        builder: (context, snapshot) =>
-            snapshot.connectionState == ConnectionState.done
-                ? ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) =>
-                        Text(snapshot.data[index].name))
-                : Container(),
+      body: BlocConsumer<UserListBloc, UserListState>(
+        listener: (context, state) {
+          if (state is UserListLoadingFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is UserListLoaded) {
+            return _buildUserList(state.userList);
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
+    );
+  }
+
+  Widget _buildUserList(List<User> users) {
+    return ListView.builder(
+      itemCount: users.length,
+      itemBuilder: (context, index) => Text(users[index].name),
     );
   }
 }

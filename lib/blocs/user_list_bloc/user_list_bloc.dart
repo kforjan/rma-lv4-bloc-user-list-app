@@ -20,7 +20,6 @@ class UserListBloc extends Bloc<UserListEvent, UserListState> {
     UserListEvent event,
   ) async* {
     if (event is GetUsers) {
-      yield UserListLoading();
       try {
         final userList = await _usersApi.getUsers();
         yield UserListLoaded(userList);
