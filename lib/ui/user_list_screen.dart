@@ -36,7 +36,18 @@ class UserListScreen extends StatelessWidget {
   Widget _buildUserList(List<User> users) {
     return ListView.builder(
       itemCount: users.length,
-      itemBuilder: (context, index) => Text(users[index].name),
+      itemBuilder: (context, index) => _buildUserTile(users[index]),
+    );
+  }
+
+  Widget _buildUserTile(User user) {
+    return ListTile(
+      title: Text(user.name),
+      subtitle: Text(user.email),
+      leading: FadeInImage(
+        image: NetworkImage(user.avatarUrl),
+        placeholder: AssetImage('assets/images/image-error.png'),
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ class User {
       id: json['id'],
       name: json['name'],
       email: json['email'],
-      avatarUrl: json['avatarUrl'],
+      avatarUrl: json['avatar'],
     );
   }
 }
