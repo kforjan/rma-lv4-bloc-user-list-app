@@ -8,5 +8,5 @@ final locator = GetIt.instance;
 setup() {
   locator.registerFactory(() => UserListBloc());
   locator.registerLazySingleton(() => RestClient());
-  locator.registerLazySingleton(() => UsersApi());
+  locator.registerLazySingleton(() => UsersApi(locator()));
 }
